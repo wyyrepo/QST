@@ -1,0 +1,19 @@
+0.5.9 to 0.5.9.1 (alpha) Changes
+
+-= Общее =-
+- Статус изменен с pre-alpha на alpha.
+- Добавлен UserDefinedQuery в перечисление QueryType.
+- Добавлены константы:
+  QST_ENABLE_FIELD_VALUE_EXTRACTING_ASSERTS_IN_MODELHANDLER
+  QST_ENABLE_FIELD_VALUE_EXTRACTING_WARNINGS_IN_MODELHANDLER
+- Исправлен баг в QstBatch, связанный с отображением колонок без заголовков во view, если в хэндлере перед полями для SELECT были заданы поля других секций (н-р, WHERE).
+- Небольшие исправления в QstTreeQueryModel.
+- Обновлена русская и английская документация.
+
+-= QstAbstractModelHandler =-
+- Добавлена функция  setQuery(const QString &query, QSqlBatabase), позволяющая выполнить пользовательский запрос в виде строки и применить его, так же, как сгенерированный запрос. При этом все возможности по автонастройке представлений пропадают.
+- Добавлена статическая функция exec(const QString &query, QSqlBatabase) для выполнения произвольного пользовательского запроса.
+- Улучшены функции извлечения данных.
+
+-= QstQueryDescriptor =-
+- Добавлены функции setQuery(), query() для установки и возврата пользовательского запроса.

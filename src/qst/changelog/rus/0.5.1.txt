@@ -1,0 +1,44 @@
+0.5.01 to 0.5.1 Changes
+
+-= QstGlobal =-
+- Добавлен элемент перечисления NullType::NotNull.
+- Почти все элементы перечисления CompareFunctor были переименованы.
+- Добавлены битовые функторы BitwiseOr, BitwiseAnd, BitwiseXor, BitwiseNot, BitwiseShiftLeft, BitwiseShiftRight.
+
+
+-= Общее =-
+- Добавлен QstLimit, добавлена генерация секции LIMIT.
+- Из класса QstQueryComposer выведен класс _StringTemplate, переименован в QstStringTemplate и помещен в QstSpecial.
+- Генерация SQL частично адаптирована для PostgreSQL (изменения в QstQueryComposer, QstQueryGenerator, querygenconstants.h).
+- Обновлена документация.
+- Добавлена генерация побитовых операций and, or, xor, lshift, rshift в секции WHERE.
+
+-= QstAbstractModelHandler =-
+- Улучшена стабильность release-версии путем возврата из процедур, если параметры невалидны.
+- Изменена логика функции clear() в сторону увеличения стабильности.
+- Добавлены функции setViewCurrentRow(), setComboBoxCurrentRow() (тестируются).
+- Добавлены функции viewFieldsValueMap(), comboBoxFieldsValueMap().
+- Функция pModel() переименована в model().
+- Функция value() отслеживает значение NullType.
+- Добавлена функция setVariantMap().
+
+-= QstPlainQueryModel =-
+- Класс теперь - не переопределение QSqlQueryModel, а наследник.
+- Прописана функция match() с ограниченным функционалом.
+
+-= QstConnectionSettings =-
+- Добавлена функция isDatabaseSettingsValid().
+
+-= QstDBConnection =-
+- Переписана логика создания подключений. Теперь экземпляр QSqlDatabase не хранится.
+- Многие функции класса подверглись рефакторингу.
+- Добавлена функция closeAll().
+- Добавлены функции removeConnection() и removeAllConnections().
+- Убраны функции rdb() и pdb().
+
+-= QstModelDescriptor =-
+- Функция pModel() переименована в model().
+
+-= QstTreeQueryItem =-
+- Функция setQuery(QSqlQuery) перенесена в секцию private.
+- Добавлена заглушка на функцию match().

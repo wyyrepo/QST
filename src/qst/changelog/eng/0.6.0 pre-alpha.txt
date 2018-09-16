@@ -1,0 +1,29 @@
+0.5.9.5a to 0.6.0 (pre-alpha) Changes
+
+-= General =-
+- Added type QstVariantListMap.
+- Developed a mechanism virtually checking, in which a string can be checked in QCheckBox.
+- Added IN-filter generation for the WHERE clause of the PostgreSqlQueryComposer.
+- Significant changes in the logic. Cosmetic changes. Bug fixes.
+
+-= QstAbstractModelHandler =-
+- Functions _selector(), _inserter(), _updater(), _deleter() è _executor() now are constant.
+- Added _execute().
+- Added virtuallyCheckedKeys(), virtuallyCheckedFields(), isVirtuallyChechingEnabled().
+- Added modelIndex(), viewExpandTo().
+- Added variantMap(), setVariantList(QVariantList), variantList(). valuesMap() renamed to valueMap().
+- Reviewed the work of certain functions in the class.
+
+-= QstField =-
+- Added bool testValue(QVariant value), it tests "<field.value()> <field.functor()> <value>".
+- Added QstField(const QString &name, const QVariantList &variantList).
+
+-= AbstractTreeModel =-
+- Added: isVirtuallyCheckingEnabled(), _isSelectable(),  virtuallyCheckedIndexes().
+- Added functional-limited function match().
+
+-= QstTreeQueryModel =-
+- Added _isSelectable(QSqlRecord).
+
+-= TreeItem =-
+- Added match(const QVariant &value, int role). It returns ColumnList - the list of columns for which the match was found with the value, role.

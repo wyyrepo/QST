@@ -1,0 +1,118 @@
+0.6.1 to 0.6.2 (alpha) Changes
+
+|===============| QUERY GENERATION |===============|
+- Completely new subsystem generating SQL (SQL-DML).
+- Complex hierarchical nested queries available now.
+- Queries are built using a pattern Builder.
+- The generating functions are removed (such as _selector(), _inserter() etc.). Direct QstBatches are used instead.
+- It is now possible to generate complex nested conditions in sections WHERE, JOIN-ON.
+- It is now possible to define your own schema queries, write your own builder for the necessary SQL dialect.
+- The query generation is two-step: first, DFD hierarchy maped on QueryFrame hierarchy; then QueryFrame hierachy converted into a query string.
+
+|====| DECLARATIVE FIELD DESCRIPTORS LANGUAGE |====|
+- To provide more complex query generation DFDL was changed accordingly.
+- DFDL v.0.6.x is not compatible with older versions for the most part.
+
+|=====================| CODE |=====================|
+-= Common =-
+- QST 0.6.x is not compatible with older versions for the most part.
+- The code is divided into modules and redistributed into folders.
+- QST modules: qst, common, gui, mvc, querygeneration, special, sql.
+- Test modules: test.
+- For logs folder is selected.
+- Removed almost all the documentation (to be developed from scratch).
+- Remove all sub-samples. They will be individual projects instead.
+- Removed almost all the unit tests (there will be new).
+- Added a new class of query generation subsystem:
+* QueryField
+* QueryValue
+* QueryBatch
+* QueryWhere
+* AbstractQueryBuilder
+* AbstractQueryValueFormat
+* QueryBuildDirector
+* QueryFrame
+* QueryFrameAccessory
+* QueryIn
+* QueryScheme
+* StringTemplate
+* PostgreSqlBuilder
+* PostgreSqlValueFormat
+* SQLiteBuilder
+* SQLiteValueFormat
+- Significantly changed the approach to work with the handlers. Now there are no numbers and the names of queries. Named QstBatches are used instead. It is possible to define local QstBatch (like a lambda) or define some QstBatch-return functions.
+- The SQL-like language added: functions QstBatch::select(), from(), where(), insert(), delete() etc.
+- The old way of making QstBatch-package (through the operator << and QstField) on, but it has changes.
+- At the moment, not all features QST 0.5.x restored.
+- Added class QstPlaceholder.
+- Added class QstWhere (redefined QueryWhere).
+- Some nonprincipal features (filters, vitrual checking) are not working. This will be fixed closer to release.
+- Qt view settings now called ViewAppearance. Added class ViewAppearance.
+- Removed FieldPurpose enum. Expanded QueryClause enum. Between them now would not be duplication.
+- InputChecker added - convenient tool for validating data in input widgets (QLineEdit, QDateEdit etc.).
+- It is easer to evaluate user defined query. Just call static QSqlQuery QstAbstractModelHandler::evalQuery(QString, QSqlDatabas).
+- A great variety of smaller changes.
+
+-= qstglobal.h =-
+- Deleted enum FieldPurpose.
+- Enum QueryClause extended and ordered.
+- Enum CompareFunctor renamed to Functor, extended and ordered.
+- Enum FuzzyBraces replaced by PercentPlaceholders.
+- Type QList<Qst::QueryClause> QueryClauseList added.
+- Removed enums: NullSubstitution, FuzzyBracesUsage, JoinType, NullType.
+- Introduced enums: ApostropheBordering, Relation, SortModel, ValueCheckFunctor, DiffPolicy.
+- Type QPair<QStringList, QStringList> StringListPair.
+- Default date and time formats added.
+
+-= QstAbstractModelHandler =-
+- Class is completely redesined. Usecases are not changed but interface and phylosophy are changed.
+- Value seting way changed (methods value(), setValue(), setVariantMap(), etc). Now, instead of the old version used the so-called placeholders, which must be in the DFD. Value manipulation functions are removed.
+- Added functions updatePlaceholders(), updatePlaceholder(), resetPlaceholders().
+- Removed reload(queryNumber, *model).
+- Int "queryNumber" arguments replaced by QstBatch.
+- extractItemName argument removed: item name extracting is mandatory now.
+- VirtuallyCheckedRows was broken. It will be fixed in the next versions.
+- Removed Insert(), Delete(), Update(), Exec(), exec(), generateQuery(QueryType, int).
+- Added:
+* static QSqlQuery evalQuery(QString, QSqlDatabas);
+* static QVariant execute(QstBatch, QString);
+* QVariant execute(QString);
+* static QString generateQuery(QstBatch);
+
+-= QstBatch =-
+- The class is not main entry for query generation. It is just functional wrapper for the QueryBatch.
+- Interface and behavoiur are completely changed.
+- Added SQL-like functions select(), from(), where(), insert(), delete() etc.
+- Added static functions escape() è unescape(). Useful for value escaping.
+- All #ifdef options removed inappropriate in mind.
+- Added updatePlaceholders(), updatePlaceholder(), resetPlaceholders().
+
+-= QstField =-
+- QstField is additional class for QueryField.
+- Interface and behavoiur are completely changed.
+- Class properties, related to the query generation, moved into QueryField.
+- Class properties for the Qt-view setting, on.
+Removed properties:
+* FieldPurpose (in QueryField replaced by QueryClause).
+* QstValueVector (moved into QueryField).
+* JoinType.
+The remaining properties:
+* Name;
+* FieldVisibility;
+* ColumnTitle;
+* ColumnWidth;
+* Orienation;
+* FieldRole;
+* ModelColumn.
+- There were only two constructors of 8
+- It isn't allowed to use class for all the query clauses. Only SELECT allowed. Use SQL-like functions instead.
+
+-= QstValue =-
+- Simple wrapper for QueryValue.
+- Formatting value functions moved to SQL builders.
+- There is only one constructor of 5.
+
+-= QstAbstractItemNameExtractor =-
+- extractItemName() renamed to extract().
+
+

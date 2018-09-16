@@ -1,0 +1,12 @@
+0.5.1 to 0.5.2 Changes
+
+-= Qst::Gui =-
+- Добавлен модуль Qst::Gui для интеграции с графическим интерфейсом Qt.
+- Добавлена подсистема генерации динамических фильтров.
+
+- QstAbstractModelHandler: Добавлены функции detachComboBox() и detachView().
+- QstModelDescriptor: Добавлены функции detachComboBox() и detachView().
+
+-= Общие =-
+- Добавлены флаги CompareFunctors.
+- Обновлена документация.

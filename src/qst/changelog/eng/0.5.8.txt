@@ -1,0 +1,64 @@
+0.5.7.1 to 0.5.8 (pre-alpha) Changes
+
+-= QST-Interview-Integration refactoring =-
+- Qt's view settings added.
+- QstAbstractModelHandler work changed. Now you must call setTableView(), setTreeView(), setListView() and setComboBox() before the reload(QSqlDatabase) call. Old-style code (reload() is the first, setXxxView() is the second) will not work.
+- Separate sortings for views added.
+- Separate data extracting for views in one handler added.
+
+--====== Attention! ======--
+
+This version of QST is not compatible with older versions. It has important changes in view-handler binding. Now you must call setTableView(), setTreeView(), setListView() and setComboBox() before the reload(QSqlDatabase) call:
+
+	_subscribersHandler.setQuery(SUBSCRIBERS);
+	_subscribersHandler.setModel(&_subscribersModel);
+	_subscribersHandler.setTableView(ui->SubscribersTableView, true);
+	_subscribersHandler.setComboBox(ui->statusComboBox);
+	// ....
+	_subscribersHandler.reload();
+	
+--=======================--
+
+-= Common =-
+- Class QstColumnSetting added.
+- Class QstViewSettings added.
+- Class QstComboBoxSettings added.
+- Class QstColumnSettingsMap added.
+- Class QstViewSettingsMap added.
+- Class QstComboBoxSettingsMap added.
+- Multiple renamed objects, code cosmetic changes.
+- Documentation is updated insignificantly.
+- QstModelDescriptor renamed to QstModelViewDescriptor.
+
+-= QstAbstractModelHandler =-
+- These functions: setComboBox(), setTableView(), setTreeView(), setListView() are changed. Now they returning iterators of spcial types.
+- These fnctions: reload(int, QstPlainQueryModel), reload(int, QstTreeQueryModel) are changed. Now they can not be used to reload view models. To load view models used reload(QSqlDatabase) when views and comboBoxes already seted.
+- "enableSortFiltering" parameter removed from most places.
+- setViewSetting() function added.
+- Some interfaces are changed.
+- Renamed: selectedKeysOfView() ->  viewSelectedKeys().
+- keyValueOfView() replaced by more featured function viewKeyValue().
+- keyValueOfComboBox() replaced by more featured function comboBoxKeyValue().
+- Fixed bug in view current row setting.
+- Deleted: keyValueOfCurrent(), keyValueOfRow().
+- Forbidden functions deleted.
+- QST_0_5_3_TO_0_5_4_MIGRATION deleted.
+- Memory leak fixed in view sorting.
+- detachView() and detachComboBox() now returning true on success and false on fail.
+
+-= QstField =-
+- ModelColumn for comboBox appearing column added into two constructors.
+- setModelColumn() and isModelColumn() added.
+
+-= QstModelViewDescriptor =-
+- Deleted: Type ItemViewListType.
+- Added: defaultView(), defaultComboBox().
+- Added: setViewSetting(), viewSettings(), contains().
+- Deleted: dataModel(), sortFilterProxyModel(), applyModels(), unload(), isSortFilterEnabled().
+- Renamed: clearViews() -> clear().
+- detachView() and detachComboBox() now returning true on success and false on fail.
+
+-= QstQueryDescriptor =-
+- Added: columnSettingsMap().
+- Added: modelColumn().
+

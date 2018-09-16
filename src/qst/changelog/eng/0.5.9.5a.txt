@@ -1,0 +1,4 @@
+0.5.9.5 to 0.5.9.5a (release) Changes
+
+-= General =-
+- Fixed compatibility with Qt 4.6.0 and higher.

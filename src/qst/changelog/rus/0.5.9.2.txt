@@ -1,0 +1,37 @@
+0.5.9.1 to 0.5.9.2 (alpha) Changes
+
+-= Общее =-
+- Добавлен тип флагов FieldRoles.
+- Добавлен тип FieldRoleIndexMap, взятый из QstBatch.
+- Добавлена динамическая подгрузка данных для древовидной модели (lazy load, "ленивая загрузка") при раскрытии вершины.
+- Для древовидной модели неважно, какое значение поля parent_id установлено у корневых элементов. Главное, чтобы значение поля level для них было наименьшим. Таким образом, можно вывести как всё дерево, начиная с корня, так и его часть.
+- Улучшена работа QstCompleter, написана документация.
+- Обновлена русская и английская документация.
+
+-= QstBatch =-
+- Запрещено добавлять поля с purpose == PurposeNone.
+- Исправлен баг с неправильным позиционированием полей с ролями для секции SELECT, если перед этими полями были загружены поля других секций.
+- Добавлена функция QstFieldList fields(const FieldRoles &roles).
+- Обновлена документация.
+- Добавлена функция fieldRoleIndexMap().
+
+-= QstField =-
+- Функция isService() переименована в hasRole(). Изменена логика функции: теперь она возвращает true, если установлена роль, отличная от RoleNone.
+- Обновлена функция isValid() для случая, когда purpose == PurposeNone. Такое поле считается инвалидным.
+- Обновлена документация.
+
+-= AbstractTreeModel =-
+- Добавлены функции: hasChildren(), beginInsertRows(), endInsertRows(), root().
+
+-= QstTreeQueryModel =-
+- Lazy load on expand.
+- Удалены функции setKeyField(), setParentField(), setLevelField(). Вместо них добавлена функция setFieldRoleIndex().
+- Добавлена функция root().
+- Добавлены функции setFieldRoleIndexMap(), setLoadOnExpandMode(), setExternalQuery(), rowCount(), hasChildren(), canFetchMore(), fetchMore().
+- Добавлена функция setDefaultParentItemLevelLevel().
+
+-= QstAbstractModelHandler =-
+- Добавлена функция fieldRoleIndexMap(int queryNumber).
+
+-= TreeItem =-
+- Добавлены функции: item(int row), hasChildren(), setFetchingMoreChildren(), fetchingMoreChildren().

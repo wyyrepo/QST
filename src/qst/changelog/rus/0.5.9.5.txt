@@ -1,0 +1,9 @@
+0.5.9.4 to 0.5.9.5 (release) Changes
+
+-= Общее =-
+- Исправлена небольшая ошибка в QstAbstractModelHandler, связанная с выбором базы данных.
+- В пример QueryGenerationExample добавлены поля для секций Group By и Order By.
+- Обновлены модульные тесты.
+- Добавлена функция QstAbstractModelHandler::model().
+- Исправлена и обновлена документация.
+- Добавлена генерация секции JOIN.

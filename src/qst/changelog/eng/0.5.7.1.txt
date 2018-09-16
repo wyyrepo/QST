@@ -1,0 +1,9 @@
+0.5.7 to 0.5.7.1 (pre-alpha) Changes
+
+-= Common =-
+
+- QstBatch. Field duplicating is returned. But not allowed key field duplicating: QstBatch may
+contain only one PrimaryKey field and only one ParentKey field.
+- QstValue. QDateTime support added.
+- Partial documentation translation to English. See English documentation.txt.
+- Russian documentation fixes.

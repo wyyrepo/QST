@@ -1,0 +1,4 @@
+0.4.2a rc to 0.5.01 Changes
+
+-= QstAbstractModelHandler =-
+- Добавлены функции viewFieldValue(), comboBoxFieldValue(), возвращающие данные поля из модели, привязанной к view или comboBox.

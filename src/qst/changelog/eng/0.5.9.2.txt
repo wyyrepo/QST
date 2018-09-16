@@ -1,0 +1,34 @@
+0.5.9.1 to 0.5.9.2 (alpha) Changes
+
+-= General =-
+- Added: FieldRoles. FieldRoleIndexMap.
+- Added lazy load on item expand in QstTreeQueryModel.
+- For the tree model does not matter what value parent_id means a pointer to the root. The main thing is that the value of the field level for them was minimal.
+- Improved work QstCompleter, written documentation.
+- Updated Russian and English documentation.
+
+-= QstBatch =-
+- Forbidden to add the field with purpose == PurposeNone.
+- Fixed bug with incorrect positioning of the fields with roles for a section of SELECT, if before these fields were loaded field of the other sections.
+- Added function QstFieldList fields(const FieldRoles &roles).
+- Documentation is updated.
+- Added fieldRoleIndexMap().
+
+-= QstField =-
+- isService() is renamed to hasRole(). Change the logic function: now it returns true, if the role different than RoleNone.
+- Updated function isValid () for the case when purpose == PurposeNone. Such a field is considered invalid.
+- Documentation is updated.
+
+-= AbstractTreeModel =-
+- Added: hasChildren(), beginInsertRows(), endInsertRows(), root().
+
+-= QstTreeQueryModel =-
+- Lazy load on expand.
+- Deleted: setKeyField(), setParentField(), setLevelField(). setFieldRoleIndex() added instead.
+- Added: root(), setFieldRoleIndexMap(), setLoadOnExpandMode(), setExternalQuery(), rowCount(), hasChildren(), canFetchMore(), fetchMore(), setDefaultParentItemLevelLevel().
+
+-= QstAbstractModelHandler =-
+- Added: fieldRoleIndexMap(int queryNumber).
+
+-= TreeItem =-
+- Added: item(int row), hasChildren(), setFetchingMoreChildren(), fetchingMoreChildren().

@@ -1,0 +1,12 @@
+0.5.9.3 to 0.5.9.4 (beta) Changes
+
+-= Общее =-
+- Завершено документирование библиотеки.
+- Добавлен очень черновой генератор диалекта SQLite, повторяющий генерацию для PostgreSQL.
+- Добавлен проект-пример на SQLite.
+- Добавлен проект-пример "QueryGeneration Example".
+- Тесты реорганизованы.
+- Незначительные изменения в классах QST.
+
+Библиотека QsT SQL Tools стала участником проекта Qt Ambassador.
+Узнать больше о программе: http://qt.nokia.com/qt-in-use/ambassadors/qt-in-use/ambassadors/qtambassador

@@ -1,0 +1,9 @@
+0.5.9.4 to 0.5.9.5 (release) Changes
+
+-= General =-
+- Fixed bug in QstAbstractModelHandler in the reload() functions: select of databases was wrong.
+- In the example QueryGenerationExample added fields for sections of Group By and Order By.
+- Unit tests are updated.
+- Added QstAbstractModelHandler::model().
+- JOIN clause generation added.
+- Documentation is fixed and updated.

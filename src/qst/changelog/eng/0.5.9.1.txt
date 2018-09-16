@@ -1,0 +1,19 @@
+0.5.9 to 0.5.9.1 (alpha) Changes
+
+-= Common =-
+- Status changed from pre-alpha to alpha.
+- Added parameter UserDefinedQuery to the enum QueryType.
+- Consstants added:
+  QST_ENABLE_FIELD_VALUE_EXTRACTING_ASSERTS_IN_MODELHANDLER
+  QST_ENABLE_FIELD_VALUE_EXTRACTING_WARNINGS_IN_MODELHANDLER
+- Fixed bug in QstBatch, associated with the mapping of columns without headers in view, if the before SELECT fields were seted fields of the other sections (eg, WHERE).
+- Fixes in QstTreeQueryModel.
+- Russian and English documentation updated.
+
+-= QstAbstractModelHandler =-
+- Function setQuery(const QString &query, QSqlBatabase) is added. Allows you to execute custom query. In this case, all the features view autotunning are lost.
+- Static function exec(const QString &query, QSqlBatabase) is added. It executes custom query.
+- Data extracting fields are improved.
+
+-= QstQueryDescriptor =-
+- Added setQuery(), query() to set and return custom query.

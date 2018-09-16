@@ -1,0 +1,12 @@
+0.5.9.3 to 0.5.9.4 (beta) Changes
+
+-= Common =-
+- Documentation is completed.
+- Added a very rough generator of the SQLite dialect, repeating the generation for PostgreSQL.
+- Added example project on SQLite.
+- Added example project 'QueryGeneration Example'
+- Tests are reorganized.
+- Insignificant changes in QST classes.
+
+The QsT SQL Tools library became a member of the program Qt Ambassador.
+Learn more about program: http://qt.nokia.com/qt-in-use/ambassadors/qt-in-use/ambassadors/qtambassador

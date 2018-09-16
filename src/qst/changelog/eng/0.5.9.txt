@@ -1,0 +1,23 @@
+0.5.8.1 to 0.5.9 (pre-alpha) Changes
+
+--====== Attention! ======--
+
+This version of QST is not compatible with older versions. It has important changes in field sequence in query generation. Now the fields in the SELECT clause follow each other as is seted in handler.
+
+--=======================--
+
+-= QstField, QstBatch, QstAbstractModelHandler refactoring =-
+- Now QstField can have only one purpose FieldPurpose, not FieldPurposes.
+- QstBatch composes fields as it seted in handler.
+- Role "RoleTreeLevel" added. To work properly with tree model set field with this role pointing to tree node level.
+
+-= QstAbstractModelHandler =-
+- Interfaces of viewKeyValue(), viewFieldValue(), comboBoxKeyValue(), fieldValue(), fieldsValueMap() etc. are changed. Now optional QModelIndex required.
+- Fixed bug in data extracting functions if model is TreeModel.
+- Documentation is updated insignificantly, some errors fixed.
+
+-= QstTreeQueryModel =-
+- Model is rewritten.
+- Added: setLevelField(int).
+- Applied: setQuery(QSqlQuery).
+- Added: _setupTree(), _columnTitles(QSqlRecord), _itemDataMap(QSqlRecord), _itemFlags(QSqlRecord).

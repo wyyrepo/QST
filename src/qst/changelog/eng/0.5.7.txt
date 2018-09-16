@@ -1,0 +1,13 @@
+0.5.6 to 0.5.7 (pre-alpha) Changes
+
+-= Common =-
+- Enum renamed: BinaryValueOrder -> BetweenFilterValueOrder. Enum elements are also renamed.
+- Russian documentation fixes.
+- Partial documentation translation to English. See English documentation.txt.
+- Some changes in QstCompleter working: binding handler class must be loaded now.
+
+-= QstBatch =-
+- These functions was changed: addSource() and addField(). Duplicates of sources and fields not allowed now.
+- setLimit() function added.
+- operator<<(const QstBatch &batch); added.
+- Documentation is updated.

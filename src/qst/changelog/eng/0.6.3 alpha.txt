@@ -1,0 +1,47 @@
+0.6.2 to 0.6.3 (alpha) Changes
+
+Disclamer:
+0.6.x version of QST is not still stable and ready-to-use. Supposedly, stable version will be made after 4-6 minor releases.
+
+|====================| GENERAL |===================|
+- Fixed a lot of mistakes.
+- Added new tests and update old ones.
+- Dynamic filters are fixed.
+- Namespaces reorganized.
+- Deleted mechanism "Type depended functors".
+- A large-scale refactoring in execution of SELECT-queries; in setuping and modelizing views.
+- From namespace Mvc to namespace Special ComboBoxSettings, ViewAppearance, ColumnSettings were moved.
+- Two new global enums: ViewType, SettingType.
+- There are renames in some classes' interfaces.
+- WHERE-clause generation was rewritten.
+- Rewritten QueryFrame. In a query generation, spaces and brackets fixed.
+
+|=====================| CODE |=====================|
+- Renamed: QueryAccessory -> QueryClauseAccessory.
+- Fixed error in QueryFrame: WHERE clause no longer appears when condition field list is empty.
+- modelColumn property moved to ViewAppearance.
+- QueryWhere validity calculates differently now. QueryWhere::isValid() fixed.
+- Fixed errors caused by QueryValue explicit constructor.
+- Renamed namespace: QstSpecial -> Special.
+- QstAbstractModelHandler:::_fieldData() refactoring.
+- QueryField constructors refactoring.
+- New class FramedQuery.
+- QueryFrame refactoring.
+- New function QstAbstractModelHandler::columnValuesList().
+- Some other changes.
+
+|====================| TESTS |=====================|
+- Tests of DefaultItemNameExtractor are updated.
+- New tests:
+* ut_QueryBatch
+* ut_QueryGeneration
+* ut_QueryWhere
+
+|====================| FIXES |=====================|
+- Fixed error of EXEC-query generation with empty parameters list.
+- Fixed important error in placeholders updating.
+- Fixed crash when query value should be returned.
+- Now it is possible to call more than 1 QueryBatch::where().
+- Fixed modelColumn for ComboBox.
+- Fixed critical crash in QstAbstractModelHandler::comboBoxFieldValue().
+- A lot of errors was fixed.

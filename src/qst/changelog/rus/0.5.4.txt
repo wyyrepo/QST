@@ -1,0 +1,33 @@
+0.5.3 to 0.5.4 (pre-alpha) Changes
+
+- Добавлена возможность устанавливать компоновщик для разных диалектов SQL.
+- Добавлен модуль sql, в котором будут лежать генератоы диалектов SQL и все, что с ними связано.
+- Добавлен класс sql/PostgreSqlQueryComposer.
+- Добавлен файл sql/commonsqlconstants.h, содержащий некоторые общие константы для элементов языка SQL.
+- Добавлен файл sql/postgresqlgenerationconstants.h, содержащий константы для генерации PostgreSQL.
+- Удален файл querygenconstants.h.
+- Удален класс QstQueryComposer, вместо него добавлен QstAbstractQueryComposer.
+- Изменен интерфейс класса QstAbstractQueryComposer в сравнении с QstQueryComposer.
+- Небольшие улучшения в классе QstModelDescriptor.
+- Переработаны тесты.
+- Обновлена документация.
+- Изменены "константы, упрощающие жизнь".
+
+-= QstAbstractModelHandler =-
+- Добавлены статические функции:
+	QstAbstractQueryComposer *queryComposer()
+	setQueryComposer(QstAbstractQueryComposer *)
+	
+	Для того, чтобы прежние программы заработали, необходимо явно указать компоновщик.
+	
+- Запрещены функции SelectToValue() и SelectToMap(). К beta-версии они будут удалены.
+- Изменен интерфейс функций viewFieldValue(), comboBoxFieldValue(), comboBoxFieldsValueMap(), viewFieldsValueMap(): удален параметр queryNumber.
+- Добавлены функции fieldValue(), fieldsValueMap().
+- Добавлена константа QST_0_5_3_TO_0_5_4_MIGRATION, помогающая выявить ошибки, связанные с изменением интерфейса функций. (Только в alpha и pre-alpha версиях QST)
+- Улучшена производительность функций viewFieldValue(), comboBoxFieldValue(), comboBoxFieldsValueMap(), viewFieldsValueMap().
+
+-= QstQueryGenerator =-
+- Функция queryComposer() теперь только возвращает компоновщик, установленный для класса QstQueryGenerator.
+- Добавлена функция fillQueryComposer(const QstBatch &batch, QstAbstractQueryComposer*) const.
+- Изменен интерфейс главного конструктора.
+- Добавлена функция setQueryComposer(QstAbstractQueryComposer *).

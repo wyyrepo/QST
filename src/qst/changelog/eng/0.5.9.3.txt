@@ -1,0 +1,12 @@
+0.5.9.2 to 0.5.9.3 (alpha) Changes
+
+-= AbstractTreeModel, QstTreeQueryModel =-
+- Fixed bug: crush on data loading into the model.
+
+-= FiltersManager =-
+- Added:
+static FilterAssembly standardHorizontalAssembly(QWidget *widget);
+static FilterAssembly standardVerticalAssembly(QWidget *widget);
+
+-= qstguisettings.h =-
+- Added constants of icons for filter show / hide buttons.

@@ -1,0 +1,67 @@
+0.5.7.1 to 0.5.8 (pre-alpha) Changes
+
+-= Рефакторинг QST-Interview-Integration =-
+- Добавлена возможность устанавливать отдельные настройки для view.
+- Изменена логика работы QstAbstractModelHandler. Теперь вызов setTableView(), setTreeView(), setListView() и setComboBox() должен происходить до вызова reload(QSqlDatabase) и после вызова setQuery(). В противном случае модель и представление не будут связаны.
+- Добавлена раздельная сортировка для view, привязанных к одному хэндлеру.
+- Добавлено раздельное извлечение данных из view, привязанных к одному хэндлеру.
+
+--====== Внимание! ======--
+
+Данная версия QST часточно несовместима с предыдущими. Важные изменения коснулись привязки представлений к классу-хэндлеру. Теперь вызов setTableView(), setTreeView(), setListView() и setComboBox() должен следовать до вызова reload(), но после setQuery():
+
+	_subscribersHandler.setQuery(SUBSCRIBERS);
+	_subscribersHandler.setModel(&_subscribersModel);
+	_subscribersHandler.setTableView(ui->SubscribersTableView, true);
+	_subscribersHandler.setComboBox(ui->statusComboBox);
+	// ....
+	_subscribersHandler.reload();
+	
+--=======================--
+
+-= Общее =-
+- Добавлен класс QstColumnSetting.
+- Добавлен класс QstViewSettings.
+- Добавлен класс QstComboBoxSettings.
+- Добавлен тип QstColumnSettingsMap.
+- Добавлен тип QstViewSettingsMap.
+- Добавлен тип QstComboBoxSettingsMap.
+- Множественные переименования, косметические исправления.
+- Незначительно обновлена документация.
+- Класс QstModelDescriptor Переименован в QstModelViewDescriptor.
+
+-= QstAbstractModelHandler =-
+- Изменены функции setTableView(), setTreeView(), setListView(). Теперь они возвращают итератор, указывающий на загруженное представление.
+- Изменена функция setComboBox(). Теперь она возвращает итератор, указывающий на загруженный comboBox.
+- Изменены функции reload(), принимающие номер запроса и модель. Теперь их нельзя использовать, чтобы загрузить представление (view) и comboBox. Для загрузки представления или comboBox необходимо использовать reload(QSqlDatabase) с предварительно настроенными моделью, запросом и самим view/comboBox.
+- Параметр "enableSortFiltering" убран отовсюду, поскольку сортировка теперь будет сделана для каждого view индивидуально.
+- Добавлена функция setViewSetting(), с помощью которой можно задать отдельные настройки для указанного view.
+- Изменены интерфейсы многих функций.
+- Переименована функция selectedKeysOfView() ->  viewSelectedKeys().
+- Создана функция viewKeyValue() с большими возможностями взамен удаленной keyValueOfView().
+- Создана функция comboBoxKeyValue() с большими возможностями взамен удаленной keyValueOfComboBox().
+- Исправлен баг с установкой текущей строки во view.
+- Удалены функции: keyValueOfCurrent(), keyValueOfRow().
+- Удалены ранее запрещенные функции.
+- Удалены константы, помогающие мигрировать с версии на версию (QST_0_5_3_TO_0_5_4_MIGRATION).
+- Устранена утечка памяти при использовании сортировки.
+- Функции detachView() и detachComboBox() теперь возвращают true, если отсоединение представления/comboBox было успешным.
+
+-= QstField =-
+- Стало возможным указать в конструкторе QstField, что данное поле будет отображаться в comboBox.
+- Добавлены функции setModelColumn() и isModelColumn().
+
+-= QstModelViewDescriptor =-
+- Удален тип ItemViewListType.
+- Добавлена функция defaultView(), возвращающая первый view, имеющийся в дескрипторе модели.
+- Добавлена функция defaultComboBox().
+- Добавлены функции: setViewSetting(), viewSettings(), contains().
+- Удалены функции: dataModel(), sortFilterProxyModel(), applyModels(), unload(), isSortFilterEnabled().
+- Переименована функция clearViews() -> clear().
+- Функции detachView() и detachComboBox() теперь возвращают true, если отсоединение представления/comboBox было успешным.
+- Добавлена функция setupComboBoxes().
+
+-= QstQueryDescriptor =-
+- Добавлена функция columnSettingsMap().
+- Добавлена функция modelColumn().
+

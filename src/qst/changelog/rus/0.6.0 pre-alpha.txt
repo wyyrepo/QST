@@ -1,0 +1,29 @@
+0.5.9.5a to 0.6.0 (pre-alpha) Changes
+
+-= General =-
+- Добавлен тип QstVariantListMap.
+- Разрабатывается механизм virtually checking, при котором строку можно отметить галочкой в QCheckBox.
+- Добавлена генерация IN в секции WHERE для PostgreSqlQueryComposer.
+- Значительные изменения в логике. Косметические изменения. Исправления ошибок.
+
+-= QstAbstractModelHandler =-
+- Функции _selector(), _inserter(), _updater(), _deleter() и _executor() сделаны константными.
+- Добавлена функция _execute().
+- Добавлены функции virtuallyCheckedKeys(), virtuallyCheckedFields(), isVirtuallyChechingEnabled(): извлечение данных для virtually checked rows.
+- Добавлены функции modelIndex(), viewExpandTo().
+- Добавлены функции variantMap(), setVariantList(QVariantList), variantList(). Функция valuesMap() переименована в valueMap().
+- Пересмотрена работа некоторых функций класса. В дальнейшем будет произведено разделение логики класса на несколько дополнительных классов.
+
+-= QstField =-
+- Добавлена функция bool testValue(QVariant value), проверяющая отношение "<field.value()> <field.functor()> <value>".
+- Добавлен конструктор QstField(const QString &name, const QVariantList &variantList).
+
+-= AbstractTreeModel =-
+- Добавлены функции: isVirtuallyCheckingEnabled(), _isSelectable(), virtuallyCheckedIndexes(). Вероятно, будет добавлена функция isVirtuallyCheckable().
+- Добавлена функция match() с ограниченным функционалом.
+
+-= QstTreeQueryModel =-
+- Добавлена функция _isSelectable(QSqlRecord).
+
+-= TreeItem =-
+- Добавлена функция match(const QVariant &value, int role), возвращающая ColumnList - список колонок, для которых было найдено совпадение с value, role.

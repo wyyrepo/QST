@@ -1,0 +1,12 @@
+0.5.9.2 to 0.5.9.3 (alpha) Changes
+
+-= AbstractTreeModel, QstTreeQueryModel =-
+- Исправлен баг с вылетом из программы при загрузке данных в модель.
+
+-= FiltersManager =-
+- Добавлены функции:
+static FilterAssembly standardHorizontalAssembly(QWidget *widget);
+static FilterAssembly standardVerticalAssembly(QWidget *widget);
+
+-= qstguisettings.h =-
+- Добавлены константы картинок для кнопок скрытия / отображения фильтров.

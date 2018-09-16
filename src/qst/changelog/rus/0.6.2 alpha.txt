@@ -1,0 +1,121 @@
+0.6.1 to 0.6.2 (alpha) Changes
+
+|===============| QUERY GENERATION |===============|
+- Полностью новая подсистема генерации запросов (SQL-DML).
+- Теперь возможны сложные иерархически вложенные запросы.
+- Запросы строятся с помощью шаблона Builder.
+- Удалены генерирующие функции класса QstAbstractModelHandler (такие как _selector(), _inserter() etc.). Вместо них напрямую используются DFD-пакеты (QstBatch).
+- Теперь возможна генерация сложных вложенных условий в секциях WHERE, JOIN-ON.
+- Стало возможным определять свои схемы запросов, писать свои билдеры для нужных диалектов SQL.
+- Генерация запросов двухшаговая: сначала по иерархии DFD генерируется иерархия QueryFrame, затем QueryFrame преобразуются в строку запроса.
+
+|====| DECLARATIVE FIELD DESCRIPTORS LANGUAGE |====|
+- DFDL изменен для поддержки более сложных запросов.
+- DFDL v.0.6.x по большей части не совместим с ранними версиями.
+
+|=====================| CODE |=====================|
+-= Common =-
+- QST 0.6.x по большей части не совместима с ранними версиями.
+- Код разбит на модули и перераспределен по папкам.
+- QST/модули: qst, common, gui, mvc, querygeneration, special, sql.
+- Test/модули: test
+- Выделена папка для логов.
+- Удалена почти вся документация (будет переписываться с нуля).
+- Удалены все подпроекты-примеры. Вместо них будут отдельные проекты.
+- Удалены почти все модульные тесты (будут созданы новые).
+- Добавлены новые классы подсистемы генерации запросов:
+* QueryField
+* QueryValue
+* QueryBatch
+* QueryWhere
+* AbstractQueryBuilder
+* AbstractQueryValueFormat
+* QueryBuildDirector
+* QueryFrame
+* QueryFrameAccessory
+* QueryIn
+* QueryScheme
+* StringTemplate
+* PostgreSqlBuilder
+* PostgreSqlValueFormat
+* SQLiteBuilder
+* SQLiteValueFormat
+- Значительно изменен подход к работе с хэндлерами. Теперь нет никаких номеров и названий запросов, вместо них используются именованные пакеты (QstBatch()). Можно задавать пакет локально, а можно и определить функцию, возвращающую нужный пакет.
+- Добавлен SQL-подобный подъязык: функции QstBatch::select(), from(), where(), insert(), delete() etc.
+- Старый способ составления QstBatch-пакета (с помощью полей и оператора <<) оставлен, но претерпел изменения.
+- На данный момент не весь функционал QST 0.5.x восстановлен.
+- Добавлен класс QstPlaceholder.
+- Добавлен класс QstWhere (переопределение класса QueryWhere).
+- Некоторые небазовые возможности (фильтры, virtual checking) не работают. Это будет исправлено ближе к релизу.
+- Визуальные настройки Qt-представлений теперь называются ViewAppearance. Добавлен класс ViewAppearance.
+- Удалено перечисление FieldPurpose. Расширено перечисление QueryClause. Теперь между ними не будет дублирования.
+- Добавлен InputChecker - удобный инструмент валидации данных в GUI-элементах редактирования (QLineEdit, QDateEdit etc.).
+- Выполнить пользовательский запрос теперь проще: достаточно вызвать статическую функцию QSqlQuery QstAbstractModelHandler::evalQuery(QString, QSqlDatabas).
+- Огромное множество более мелких изменений.
+
+-= qstglobal.h =-
+- Удалено перечисление FieldPurpose.
+- Перечисление QueryClause расширено и упорядочено.
+- Перечисление CompareFunctor переименовано в Functor, расширено и упорядочено.
+- Перечисление FuzzyBraces заменено перечислением PercentPlaceholders.
+- Добавлен тип QList<Qst::QueryClause> QueryClauseList.
+- Удалены перечисления NullSubstitution, FuzzyBracesUsage, JoinType, NullType.
+- Добавлены перечисления ApostropheBordering, Relation, SortModel, ValueCheckFunctor, DiffPolicy.
+- Добавлен тип QPair<QStringList, QStringList> StringListPair.
+- Добавлены умолчательные форматы даты и времени.
+
+
+-= QstAbstractModelHandler =-
+- Класс полностью переработан. Способы его использования не изменились, но изменился интерфейс и философия.
+- Изменен способ задания значений (методы value(), setVariantMap(), etc). Теперь вместо старого варианта используются т.н. placeholders, которые необходимо указывать в DFD.
+- Функции манипуляции значениями удалены.
+- Добавлены функции updatePlaceholders(), updatePlaceholder(), resetPlaceholders().
+- Удалены функции reload(queryNumber, *model).
+- Функции, ранее принимавшие номер запроса, теперь принимают QstBatch.
+- Параметр extractItemName удален: теперь извлечение имени поля делается всегда.
+- Нарушена работа virtuallyCheckedRows. Будет восстановлена в следующих версиях QST.
+- Удалены функции Insert(), Delete(), Update(), Exec(), exec(), generateQuery(QueryType, int).
+- Добавлены:
+* static QSqlQuery evalQuery(QString, QSqlDatabas);
+* static QVariant execute(QstBatch, QString);
+* QVariant execute(QString);
+* static QString generateQuery(QstBatch);
+
+-= QstBatch =-
+- Класс теперь не является основной единицей для генерации запросов. QstBatch - функциональная обертка над QueryBatch.
+- Интерфейс и поведение класса совершенно изменены.
+- Добавлены функции select(), from(), where(), insert(), delete() etc.
+- Добавлены статические функции escape() и unescape(), позволяющие экранировать строки.
+- Убраны все настройки через #ifdef в виду нецелесообразности.
+- Добавлены функции updatePlaceholders(), updatePlaceholder(), resetPlaceholders().
+
+-= QstField =-
+- Класс является дополнением к QueryField.
+- Интерфейс и поведение класса изменены.
+- Свойства класса, относящиеся к генерации запросов, перенесены в QueryField.
+- Свойства класса, отвечающие за настройку Qt-представлений, оставлены.
+Удаленные свойства:
+* Назначение поля FieldPurpose (в QueryField заменен на QueryClause).
+* Значения QstValueVector, хранящиеся в поле (перенесены в QueryField).
+* JoinType (перечисление удалено).
+Оставшиеся свойства:
+* Name;
+* FieldVisibility;
+* ColumnTitle;
+* ColumnWidth;
+* Orienation;
+* FieldRole;
+* ModelColumn.
+- Из 8 конструкторов класса оставлены только 2.
+- Класс теперь нельзя использовать для полей всех секций. Допускается только секция SELECT. Для всех остальных секций следует использовать SQL-Like функции класса QstBatch.
+
+-= QstValue =-
+- Класс является простой оберткой над QueryValue.
+- Класс оставлен для меньшего нарушения совместимости с прошлой версией QST.
+- Функции форматирования значения перенесены в билдер конкретного диалекта SQL.
+- Оставлен один конструктор из пяти.
+
+-= QstAbstractItemNameExtractor =-
+- Метод extractItemName() переименован в extract().
+
+

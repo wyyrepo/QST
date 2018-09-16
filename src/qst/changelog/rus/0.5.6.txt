@@ -1,0 +1,47 @@
+0.5.5 to 0.5.6 (pre-alpha) Changes
+
+-= Общее =-
+- Добавлена программная сортировка в QTableView и QTreeView.
+- Добавлен файл test.pri. Теперь подсистема тестирования и библиотека qst находятся в своих подпроектах.
+- Добавлен класс QstCompleter, расширяющий возможности QCompleter.
+- Решено сделать константу QST_0_5_3_TO_0_5_4_MIGRATION undefined, не дожидаясь beta-версии продукта.
+
+-= QstAbstractModelHandler =-
+- Добавлена возможность программной сортировки данных в QTableView и QTreeView.
+- Добавлена возможность разрешать или запрещать программную сортировку для каждого view.
+- Добавлена функция unload().
+- Добавлены функции setQuery() и setModel().
+- Теперь в полной мере протестирован и работает вариант с предварительной установкой модели и запроса с последующей загрузкой данных через reload(QSqlDatabase).
+- Изменена функция QstAbstractModelHandler::clear(). Теперь она не позволяет удалять модель.
+- Изменено имя функции serviceFieldIndex() на fieldColumnIndex(). Функция fieldColumnIndex() перегружена для запроса индекса колонки по имени поля.
+- Функции model() объявлены устаревшими. В beta-версии они будут убраны.
+- Функция modelDescriptor() теперь возвращает указатель, а не копию.
+- Добавлены функции addValuesMap() и addVariantMap().
+- Добавлена функция queryDescriptor().
+- Код переработан.
+- Косметические исправления.
+- Добавлены значения QStringList() по умолчанию для первых параметров функций viewFieldsValueMap(), comboBoxFieldsValueMap(), fieldsValueMap().
+
+-= QstQueryDescriptor =-
+- Добавлена функция isValid().
+
+-= QstModelDescriptor =-
+- Из класса удален класс QstQueryDescriptor (перенесен непосредственно в QstAbstractModelHandler).
+- Класс теперь содержит QSortFilterProxyModel для программной сортировки данных.
+- Добавлены функции dataModel() и sortFilterProxyModel().
+- Добавлены функции applyModels() и setSortFilterProxyModel(). Незначительно изменен интерфейс функции setModel().
+- Добавлена функция unload().
+- Добавлена функция isSortFilterEnabled().
+
+-= QstQueryDescriptor =-
+- Добавлена функция clear().
+- Добавлена функция isValid().
+- Добавлены функции queryTypeToString() (обычная и статическая), возвращающие строковое значение для QueryType.
+
+-= Qst::Gui =-
+- Добавлен класс QstCompleter, расширяющий возможности QCompleter.
+- При создании фильтров сигнал dataChanged() больше не возбуждается.
+- Изменено имя константы: QST_GUI_FILTER_ITEMS_LAYOUT_SPACING.
+
+-= Прочее =-
+- Переименованы элементы перечисления ModelType.
